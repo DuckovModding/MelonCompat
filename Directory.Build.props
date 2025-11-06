@@ -1,0 +1,31 @@
+<Project>
+    <PropertyGroup>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <ClearOutputDirectory>false</ClearOutputDirectory>
+        <GameDirectory Condition="Exists('$(DUCKOV_GAME_DIRECTORY)')">$(DUCKOV_GAME_DIRECTORY)</GameDirectory>
+        <DUCKOV_DATA_DIRECTORY>$(GameDirectory)\Duckov_Data</DUCKOV_DATA_DIRECTORY>
+        <DUCKOV_MODS_DIRECTORY>$(DUCKOV_DATA_DIRECTORY)\Mods</DUCKOV_MODS_DIRECTORY>
+        <DUCKOV_GAME_MANAGED>$(DUCKOV_DATA_DIRECTORY)\Managed</DUCKOV_GAME_MANAGED>
+        <MelonLoaderDirectory>$(GameDirectory)\MelonLoader</MelonLoaderDirectory>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <ItemDefinitionGroup>
+        <PackageReference PrivateAssets="all"/>
+        <Reference Private="false"/>
+    </ItemDefinitionGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Roslynator.Analyzers" Version="*">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Roslynator.Formatting.Analyzers" Version="*">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+</Project>
