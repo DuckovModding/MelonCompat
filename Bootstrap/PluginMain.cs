@@ -25,7 +25,15 @@ internal sealed class PluginMain : MelonPlugin
         }
 
         var allLoadedMelons = new List<MelonBase>();
-        foreach (var dllPath in Directory.EnumerateFiles(steamWorkshopDirectory, "*.dll", SearchOption.AllDirectories))
+        LoadMelon(allLoadedMelons, steamWorkshopDirectory);
+        LoadMelon(allLoadedMelons, Path.Combine(baseDirectory, "Duckov_Data", "Mods"));
+
+        RegisterSorted(allLoadedMelons);
+    }
+
+    private void LoadMelon(List<MelonBase> melons, string folder)
+    {
+        foreach (var dllPath in Directory.EnumerateFiles(folder, "*.dll", SearchOption.AllDirectories))
         {
             try
             {
@@ -40,14 +48,12 @@ internal sealed class PluginMain : MelonPlugin
                 var melonAssembly = MelonAssembly.LoadMelonAssembly(dllPath);
                 LoggerInstance.Msg($"Loaded mod assembly from {dllPath}");
 
-                allLoadedMelons.AddRange(melonAssembly.LoadedMelons);
+                melons.AddRange(melonAssembly.LoadedMelons);
             }
             catch (Exception ex)
             {
                 LoggerInstance.Error($"Failed to load mod assembly from {dllPath}: {ex.Message}");
             }
         }
-
-        RegisterSorted(allLoadedMelons);
     }
 }
